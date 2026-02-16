@@ -1,5 +1,6 @@
 function love.load()
-  love.window.setFullscreen(true)
+  --love.window.setFullscreen(true)
+  love.window.setMode(1280,720)
   local w=love.graphics.getWidth()
   local h=love.graphics.getHeight()
   local d=h/6
@@ -43,8 +44,10 @@ function Button:draw()
   if love.joystick.getJoysticks()[1]:isGamepadDown(b) then yo=h*3/4 end
   love.graphics.setColor(0x4d/0xff,0x7a/0xff,0xd9/0xff,0xff/0xff)
   love.graphics.circle('fill',x,y+h,r)
-  love.graphics.rectangle('fill',x-r+1,y+yo,r*2-1,h-yo)
+  love.graphics.rectangle('fill',x-r,y+yo,r*2,h-yo)
   love.graphics.circle('fill',x,y+yo,r)
-  love.graphics.setColor(0x66/0xff,0xe3/0xff,0xbc/0xff,0xff/0xff)
+  love.graphics.setColor(0xf3/0xff,0xea/0xff,0xd6/0xff,0xff/0xff)
   love.graphics.circle('fill',x,y+yo,r*15/16)
+  love.graphics.setColor(0x66/0xff,0xe3/0xff,0xbc/0xff,0xff/0xff)
+  love.graphics.circle('fill',x,y+yo,r*14/16)
 end
