@@ -41,7 +41,8 @@ function Button:draw()
   local r=love.graphics.getHeight()/16
   local h=love.graphics.getHeight()/48
   local yo=0
-  if love.joystick.getJoysticks()[1]:isGamepadDown(b) then yo=h*3/4 end
+  local j=love.joystick.getJoysticks()
+  if j[1] and j[1]:isGamepadDown(b) then yo=h*3/4 end
   love.graphics.setColor(0x4d/0xff,0x7a/0xff,0xd9/0xff,0xff/0xff)
   love.graphics.circle('fill',x,y+h,r)
   love.graphics.rectangle('fill',x-r,y+yo,r*2,h-yo)
