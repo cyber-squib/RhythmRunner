@@ -97,7 +97,7 @@ function love.gamepadpressed(j,b)
   if true --_tune:isPlaying()
   and ro>.99 and ro<1.01 then
   elseif true
-  and ro<1
+  and ro<1.75
   and math.abs(a-n)<.3
   then
     _score=_score+1
@@ -140,13 +140,13 @@ function love.mousepressed(x,y,b,t)
   local r=love.graphics.getHeight()/16
   
   if rro>.99 and rro<1.01 and lro>.99 and lro<1.01 then
-  elseif (lro<1
+  elseif (lro<1.75
   and _leftBeatronome
   and _leftBeatronome.rx
   and _leftBeatronome.ry
   and math.abs(_leftBeatronome.rx-x)<r*1.5
   and math.abs(_leftBeatronome.ry-y)<r*1.5)
-  or (rro<1
+  or (rro<1.75
   and _rightBeatronome
   and _rightBeatronome.rx
   and _rightBeatronome.ry
