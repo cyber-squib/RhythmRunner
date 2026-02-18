@@ -203,9 +203,10 @@ function Beatronome:draw()
   local yo=d*math.sin(a)
   
   
-  local r=love.graphics.getHeight()/32
+  local r=love.graphics.getHeight()/14
   --local ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))*r*2
-  local ro=math.abs((math.sin((c:getSample(si,1)/2+.5)+.25)*math.pi))*r*2
+  --local ro=math.abs((math.sin((c:getSample(si,1)/2+.5)+.25)*math.pi))*r*2
+  local ro=(c:getSample(si,1)+1)*love.graphics.getHeight()/24
   
   love.graphics.setColor(0xe8/0xff,0x7a/0xff,0x48/0xff,0xff/0xff)
   love.graphics.setLineWidth(r/4)
