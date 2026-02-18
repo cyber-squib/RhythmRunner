@@ -4,6 +4,8 @@ function love.load()
   local w=love.graphics.getWidth()
   local h=love.graphics.getHeight()
   _tune=love.audio.newSource("rsrc/tune.wav","static")
+  _confirm=love.audio.newSource("rsrc/confirm.wav","static")
+  _decline=love.audio.newSource("rsrc/decline.wav","static")
   --_controlLeft=love.sound.newSoundData("rsrc/control_left.wav")
   --_controlRight=love.sound.newSoundData("rsrc/control_right.wav")
   _controlRight=love.sound.newSoundData("rsrc/control_left.wav")
@@ -98,7 +100,10 @@ function love.gamepadpressed(j,b)
     -
     math.abs(math.sin(n*math.pi))
     )<.3
-  then _score=_score+1 end
+  then
+    _score=_score+1
+    _confirm:clone():play()
+  end
 
 end
 
@@ -128,7 +133,10 @@ function love.mousepressed(x,y,b,t)
   ---local ro
   ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))--*r*2
   
-  if ro>.70 then _score=_score+1 end
+  if ro>.70 then
+    _confirm:clone():play()
+    _score=_score+1
+  end
 
 end
 
