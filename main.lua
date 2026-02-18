@@ -94,7 +94,8 @@ function love.gamepadpressed(j,b)
   local ro
   ro=c:getSample(si,1)+1
 
-  if ro<.3
+  if _tune:isPlaying()
+  and ro<1
   and math.abs(a-n)<.3
   then
     _score=_score+1
@@ -129,7 +130,9 @@ function love.mousepressed(x,y,b,t)
   local ro
   ro=c:getSample(si,1)+1
   
-  if ro>1.7 then
+  if _tune:isPlaying()
+  and ro>1
+  then
     _confirm:clone():play()
     _score=_score+1
   end
