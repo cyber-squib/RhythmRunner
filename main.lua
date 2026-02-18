@@ -131,9 +131,9 @@ function love.mousepressed(x,y,b,t)
   
   local r=love.graphics.getHeight()/16
   ---local ro
-  ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))--*r*2
+  ro=c:getSample(si,1)+1
   
-  if ro>.70 then
+  if ro>1.7 then
     _confirm:clone():play()
     _score=_score+1
   end
