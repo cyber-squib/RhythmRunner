@@ -100,6 +100,9 @@ function love.gamepadpressed(j,b)
   then
     _score=_score+1
     _confirm:clone():play()
+  else
+    _score=_score-1
+    _decline:clone():play()
   end
 
 end
@@ -110,9 +113,9 @@ function love.mousepressed(x,y,b,t)
 
   if false then
   elseif b==1 then
-    c=_controlLeft
-  elseif b==2 then
     c=_controlRight
+  elseif b==2 then
+    c=_controlLeft
   end
   
   local h=love.graphics.getHeight()
@@ -131,10 +134,13 @@ function love.mousepressed(x,y,b,t)
   ro=c:getSample(si,1)+1
   
   if _tune:isPlaying()
-  and ro>1
+  and ro<1
   then
     _confirm:clone():play()
     _score=_score+1
+  else
+    _decline:clone():play()
+    _score=_score-1
   end
 
 end
