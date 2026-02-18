@@ -95,6 +95,8 @@ function love.gamepadpressed(j,b)
   ro=c:getSample(si,1)+1
 
   if true --_tune:isPlaying()
+  and ro>.99 and ro<1.01 then
+  elseif true
   and ro<1
   and math.abs(a-n)<.3
   then
@@ -137,7 +139,8 @@ function love.mousepressed(x,y,b,t)
   
   local r=love.graphics.getHeight()/16
   
-  if (lro<1
+  if rro>.99 and rro<1.01 and lro>.99 and lro<1.01 then
+  elseif (lro<1
   and _leftBeatronome
   and _leftBeatronome.rx
   and _leftBeatronome.ry
