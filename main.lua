@@ -42,15 +42,15 @@ function love.draw()
   _rightBeatronome:draw()
   love.graphics.setFont(love.graphics.newFont(w/48))
   love.graphics.print("SCORE: ".._score,w*7/16,h*3/4)
-  if(ro)then love.graphics.print("RADIUS OFFSET: "..ro,w*7/16,h*13/16) end
-  if a then love.graphics.print("ANGLE CONTROL: "..math.abs(math.sin(a*math.pi)),w*7/16,h*14/16) end
-  if n then love.graphics.print("ANGLE INPUT: "..math.abs(math.sin(n*math.pi)),w*7/16,h*15/16) end
+  --if(ro)then love.graphics.print("RADIUS OFFSET: "..ro,w*7/16,h*13/16) end
+  --if a then love.graphics.print("ANGLE CONTROL: "..a,w*7/16,h*14/16) end
+  --if n then love.graphics.print("ANGLE INPUT: "..n,w*7/16,h*15/16) end
 end
 
 function love.gamepadpressed(j,b)
 
   local c=_controlLeft
-  ---local n
+  local n
   n=0
   if false then
   elseif b=='a' then
@@ -82,24 +82,20 @@ function love.gamepadpressed(j,b)
   local h=love.graphics.getHeight()
   local d=h/6
   
-  ---local a,si
+  local a,si
   si=_tune:tell("samples")
   a=0
-  a=(c:getSample(si,2)/2+.5)*2--*math.pi
+  a=c:getSample(si,2)+1
   
   local xo=d*math.cos(a)
   local yo=d*math.sin(a)
   
   local r=love.graphics.getHeight()/16
-  ---local ro
-  ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))--*r*2
+  local ro
+  ro=c:getSample(si,1)+1
 
   if ro<.3
-  and math.abs(
-    math.abs(math.sin(a*math.pi))
-    -
-    math.abs(math.sin(n*math.pi))
-    )<.3
+  and math.abs(a-n)<.3
   then
     _score=_score+1
     _confirm:clone():play()
@@ -130,7 +126,7 @@ function love.mousepressed(x,y,b,t)
   local yo=d*math.sin(a)
   
   local r=love.graphics.getHeight()/16
-  ---local ro
+  local ro
   ro=c:getSample(si,1)+1
   
   if ro>1.7 then
