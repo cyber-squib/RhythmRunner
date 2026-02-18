@@ -40,69 +40,71 @@ function love.draw()
   _rightBeatronome:draw()
   love.graphics.setFont(love.graphics.newFont(w/48))
   love.graphics.print("SCORE: ".._score,w*7/16,h*3/4)
+  if(ro)then love.graphics.print("RADIUS OFFSET: "..ro,w*7/16,h*13/16) end
+  if a then love.graphics.print("ANGLE CONTROL: "..math.abs(math.sin(a*math.pi)),w*7/16,h*14/16) end
+  if n then love.graphics.print("ANGLE INPUT: "..math.abs(math.sin(n*math.pi)),w*7/16,h*15/16) end
 end
 
 function love.gamepadpressed(j,b)
 
-  local c
-
+  local c=_controlLeft
+  ---local n
+  n=0
   if false then
   elseif b=='a' then
-    c=_controlRight
+    c=_controlLeft
+    n=.5
   elseif b=='b' then
-    c=_controlRight
+    c=_controlLeft
+    n=0
   elseif b=='x' then
-    c=_controlRight
+    c=_controlLeft
+    n=1
   elseif b=='y' then
-    c=_controlRight
+    c=_controlLeft
+    n=1.5
   elseif b=='dpdown' then
-    c=_controlLeft
+    c=_controlRight
+    n=.5
   elseif b=='dpright' then
-    c=_controlLeft
+    c=_controlRight
+    n=0
   elseif b=='dpleft' then
-    c=_controlLeft
+    c=_controlRight
+    n=1
   elseif b=='dpup' then
-    c=_controlLeft
+    c=_controlRight
+    n=1.5
   end
   
   local h=love.graphics.getHeight()
   local d=h/6
   
-  local a,si
+  ---local a,si
   si=_tune:tell("samples")
   a=0
-  a=(c:getSample(si,2)/2+.5)*2*math.pi
+  a=(c:getSample(si,2)/2+.5)*2--*math.pi
   
   local xo=d*math.cos(a)
   local yo=d*math.sin(a)
   
   local r=love.graphics.getHeight()/16
-  local ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))*r*2
+  ---local ro
+  ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))--*r*2
 
-  if false then
-  elseif b=='a' then
-
-  elseif b=='b' then
-
-  elseif b=='x' then
-
-  elseif b=='y' then
-
-  elseif b=='dpdown' then
-
-  elseif b=='dpright' then
-
-  elseif b=='dpleft' then
-
-  elseif b=='dpup' then
-
-  end
+  if ro<.3
+  and math.abs(
+    math.abs(math.sin(a*math.pi))
+    -
+    math.abs(math.sin(n*math.pi))
+    )<.3
+  then _score=_score+1 end
 
 end
 
 function love.mousepressed(x,y,b,t)
 
-  local c
+  local c=_controlLeft
 
   if false then
   elseif b==1 then
@@ -123,14 +125,10 @@ function love.mousepressed(x,y,b,t)
   local yo=d*math.sin(a)
   
   local r=love.graphics.getHeight()/16
-  local ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))*r*2
-
-  if false then
-  elseif b==1 then
+  ---local ro
+  ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))--*r*2
   
-  elseif b==2 then
-  
-  end
+  if ro>.70 then _score=_score+1 end
 
 end
 
