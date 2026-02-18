@@ -12,10 +12,10 @@ function love.load()
   _controlLeft=love.sound.newSoundData("rsrc/control_right.wav")
   _tune:play()
   local d=h/6
-  _button1=setmetatable({x=w*5/7+0,y=h/2+d,k=2,b='a'},Button)
-  _button2=setmetatable({x=w*5/7+d,y=h/2+0,k=2,b='b'},Button)
-  _button3=setmetatable({x=w*5/7-d,y=h/2+0,k=2,b='x'},Button)
-  _button4=setmetatable({x=w*5/7+0,y=h/2-d,k=2,b='y'},Button)
+  _button1=setmetatable({x=w*5/7+0,y=h/2+d,k=1,b='a'},Button)
+  _button2=setmetatable({x=w*5/7+d,y=h/2+0,k=1,b='b'},Button)
+  _button3=setmetatable({x=w*5/7-d,y=h/2+0,k=1,b='x'},Button)
+  _button4=setmetatable({x=w*5/7+0,y=h/2-d,k=1,b='y'},Button)
   _button5=setmetatable({x=w*2/7+0,y=h/2+d,k=1,b='dpdown'},Button)
   _button6=setmetatable({x=w*2/7+d,y=h/2+0,k=1,b='dpright'},Button)
   _button7=setmetatable({x=w*2/7-d,y=h/2+0,k=1,b='dpleft'},Button)
@@ -130,11 +130,25 @@ function love.mousepressed(x,y,b,t)
   local yo=d*math.sin(a)
   
   local r=love.graphics.getHeight()/16
-  local ro
-  ro=c:getSample(si,1)+1
+  local rro
+  rro=_controlRight:getSample(si,1)+1
+  local lro
+  lro=_controlLeft:getSample(si,1)+1
   
-  if true --_tune:isPlaying()
-  and ro<1
+  local r=love.graphics.getHeight()/16
+  
+  if (lro<1
+  and _leftBeatronome
+  and _leftBeatronome.rx
+  and _leftBeatronome.ry
+  and math.abs(_leftBeatronome.rx-x)<r*1.5
+  and math.abs(_leftBeatronome.ry-y)<r*1.5)
+  or (rro<1
+  and _rightBeatronome
+  and _rightBeatronome.rx
+  and _rightBeatronome.ry
+  and math.abs(_rightBeatronome.rx-x)<r*1.5
+  and math.abs(_rightBeatronome.ry-y)<r*1.5)
   then
     _confirm:clone():play()
     _score=_score+1
@@ -162,7 +176,10 @@ function Button:draw()
   local yo=0
   local j=love.joystick.getJoysticks()
   if j[1] and j[1]:isGamepadDown(b) then yo=h*3/4 end
-  if s.k and love.mouse.isDown(s.k) then yo=h*3/4 end
+  if s.k and love.mouse.isDown(s.k) 
+  and math.abs(love.mouse.getX()-s.x)<r*1.5
+  and math.abs(love.mouse.getY()-s.y)<r*1.5
+  then yo=h*3/4 end
   
   love.graphics.setColor(0xf1/0xff,0xd8/0xff,0x69/0xff,0xff/0xff)
   love.graphics.circle('fill',x,y+r*.125,r*1.5)
@@ -215,7 +232,9 @@ function Beatronome:draw()
   
   love.graphics.setColor(0xe8/0xff,0x7a/0xff,0x48/0xff,0xff/0xff)
   love.graphics.setLineWidth(r/4)
-  love.graphics.circle('line',x+xo,y+yo+r*.125,r*10/8+ro)
+  s.rx=x+xo
+  s.ry=y+yo
+  love.graphics.circle('line',s.rx,s.ry+r*.125,r*10/8+ro)
   --love.graphics.setColor(0xf3/0xff,0xea/0xff,0xd6/0xff,0xff/0xff)
   --love.graphics.circle('fill',x+xo,y+yo+r*.125,r*13/8)
   
