@@ -12,21 +12,22 @@ function love.load()
   _controlRight=love.sound.newSoundData("rsrc/control_left.wav")
   _controlLeft=love.sound.newSoundData("rsrc/control_right.wav")
   _tune:play()
-  local d=h/6
-          _button1=setmetatable({x=w*12/15+0,y=h/2+d,k=1,b='a'},Button)
-          _button2=setmetatable({x=w*12/15+d,y=h/2+0,k=1,b='b'},Button)
-          _button3=setmetatable({x=w*12/15-d,y=h/2+0,k=1,b='x'},Button)
-          _button4=setmetatable({x=w*12/15+0,y=h/2-d,k=1,b='y'},Button)
-          _button5=setmetatable({x=w*03/15+0,y=h/2+d,k=1,b='dpdown'},Button)
-          _button6=setmetatable({x=w*03/15+d,y=h/2+0,k=1,b='dpright'},Button)
-          _button7=setmetatable({x=w*03/15-d,y=h/2+0,k=1,b='dpleft'},Button)
-          _button8=setmetatable({x=w*03/15+0,y=h/2-d,k=1,b='dpup'},Button)
-   _leftBeatronome=setmetatable({x=w*12/15,y=h/2,c=_controlLeft},Beatronome)
-  _rightBeatronome=setmetatable({x=w*03/15,y=h/2,c=_controlRight},Beatronome)
+  local d=h/(6+1)
+          _button1=setmetatable({x=w*19/23+0,y=h/2+d,k=1,b='a'},Button)
+          _button2=setmetatable({x=w*19/23+d,y=h/2+0,k=1,b='b'},Button)
+          _button3=setmetatable({x=w*19/23-d,y=h/2+0,k=1,b='x'},Button)
+          _button4=setmetatable({x=w*19/23+0,y=h/2-d,k=1,b='y'},Button)
+          _button5=setmetatable({x=w*04/23+0,y=h/2+d,k=1,b='dpdown'},Button)
+          _button6=setmetatable({x=w*04/23+d,y=h/2+0,k=1,b='dpright'},Button)
+          _button7=setmetatable({x=w*04/23-d,y=h/2+0,k=1,b='dpleft'},Button)
+          _button8=setmetatable({x=w*04/23+0,y=h/2-d,k=1,b='dpup'},Button)
+   _leftBeatronome=setmetatable({x=w*19/23,y=h/2,c=_controlLeft},Beatronome)
+  _rightBeatronome=setmetatable({x=w*04/23,y=h/2,c=_controlRight},Beatronome)
   _score=0
 end
 
 function love.draw()
+  --love.graphics.scale(15/16,15/16)
   local w=love.graphics.getWidth()
   local h=love.graphics.getHeight()
   --love.graphics.setColor(0xf3/0xff,0xea/0xff,0xd6/0xff,0xff/0xff)
@@ -41,8 +42,12 @@ function love.draw()
   _button8:draw()
   _leftBeatronome:draw()
   _rightBeatronome:draw()
+  
+  love.graphics.setLineWidth(1)
+  love.graphics.rectangle("line",w/2-h/4,h/4,h/2,h/2,16,16)
+  
   love.graphics.setFont(love.graphics.newFont(w/48))
-  love.graphics.print("SCORE: ".._score,w*7/16,h*3/4)
+  love.graphics.print("SCORE: ".._score,w*7/16,h*11/16)
   --if(ro)then love.graphics.print("RADIUS OFFSET: "..ro,w*7/16,h*13/16) end
   --if a then love.graphics.print("ANGLE CONTROL: "..a,w*7/16,h*14/16) end
   --if n then love.graphics.print("ANGLE INPUT: "..n,w*7/16,h*15/16) end
@@ -175,7 +180,7 @@ function Button:draw()
   if s.x then x=s.x end
   if s.y then y=s.y end
   if s.b then b=s.b end
-  local r=love.graphics.getHeight()/16
+  local r=love.graphics.getHeight()/(16+2)
   local h=love.graphics.getHeight()/48
   local yo=0
   local j=love.joystick.getJoysticks()
@@ -218,7 +223,7 @@ function Beatronome:draw()
   
   
   local h=love.graphics.getHeight()
-  local d=h/6
+  local d=h/(6+1)
   
   local a,si
   si=_tune:tell("samples")
@@ -229,10 +234,10 @@ function Beatronome:draw()
   local yo=d*math.sin(a)
   
   
-  local r=love.graphics.getHeight()/14
+  local r=love.graphics.getHeight()/(14+03)
   --local ro=math.abs(math.sin((c:getSample(si,1)/2+.5)*2*math.pi))*r*2
   --local ro=math.abs((math.sin((c:getSample(si,1)/2+.5)+.25)*math.pi))*r*2
-  local ro=(c:getSample(si,1)+1)*love.graphics.getHeight()/24
+  local ro=(c:getSample(si,1)+1)*love.graphics.getHeight()/(24+08)
   
   love.graphics.setColor(0xe8/0xff,0x7a/0xff,0x48/0xff,0xff/0xff)
   love.graphics.setLineWidth(r/4)
