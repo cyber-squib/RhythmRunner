@@ -43,7 +43,8 @@ function love.draw()
   _leftBeatronome:draw()
   _rightBeatronome:draw()
   
-  love.graphics.setLineWidth(1)
+  local r=love.graphics.getHeight()/(14+03)
+  love.graphics.setLineWidth(r/4)
   love.graphics.rectangle("line",w/2-h/4,h/4,h/2,h/2,16,16)
   
   love.graphics.setFont(love.graphics.newFont(w/48))
